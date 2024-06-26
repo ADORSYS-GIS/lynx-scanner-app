@@ -1,15 +1,9 @@
+import './logging' // The order of this import is important
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
-import log from 'electron-log/node';
 import { join } from 'path'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import './spawn_server'
-
-console.log = log.log
-console.debug = log.debug
-console.error = log.error
-console.warn = log.warn
-console.trace = log.verbose
 
 function createWindow(): void {
   // Create the browser window.

@@ -1,0 +1,67 @@
+name: Build and Release Electron App
+
+on:
+  push:
+    branches:
+      - main # or any other branch you want
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [win, linux]
+        node-version: [21]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install wine for windows
+        if: matrix.platform == 'win'
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install wine64 wine32
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install dmg-license for mac
+        if: matrix.platform == 'mac'
+        run: |
+          pnpm i -D dmg-license
+
+      - name: Build and package app for ${{ matrix.platform }}
+        run: pnpm run build:${{ matrix.platform }}
+
+      - name: Upload dist to Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          tag: v1.0.0
+          body: |
+            Release ${{ github.ref }}

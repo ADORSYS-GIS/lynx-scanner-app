@@ -3,17 +3,26 @@ name: Build and Release Electron App
 on:
   push:
     branches:
-      - main # or any other branch you want
+      - '**'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
-        platform: [win, linux]
-        node-version: [21]
+        platform:
+          - win
+          - linux
+          - mac
+        include:
+          - platform: mac
+            runs-on: macos-latest
+          - platform: win
+            runs-on: windows-latest
+          - platform: linux
+            runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -23,13 +32,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-
-      - name: Install wine for windows
-        if: matrix.platform == 'win'
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt-get install wine64 wine32
 
       - name: Install dependencies
         run: pnpm install
@@ -43,7 +45,8 @@ jobs:
         run: pnpm run build:${{ matrix.platform }}
 
       - name: Upload dist to Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           name: dist
           path: dist
@@ -51,17 +54,18 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "dist/*"
-          tag: v1.0.0
+          tag: v1.0.1
           body: |
             Release ${{ github.ref }}

@@ -14,6 +14,9 @@ importers:
       '@electron-toolkit/utils':
         specifier: ^3.0.0
         version: 3.0.0(electron@31.1.0)
+      arch:
+        specifier: ^3.0.0
+        version: 3.0.0
       electron-log:
         specifier: ^5.1.5
         version: 5.1.5
@@ -737,6 +740,9 @@ packages:
     peerDependencies:
       dmg-builder: 24.13.3
       electron-builder-squirrel-windows: 24.13.3
+
+  arch@3.0.0:
+    resolution: {integrity: sha512-AmIAC+Wtm2AU8lGfTtHsw0Y9Qtftx2YXEEtiBP10xFUtMOA+sHHx6OAddyL52mUKh1vsXQ6/w1mVDptZCyUt4Q==}
 
   archiver-utils@2.1.0:
     resolution: {integrity: sha512-bEL/yUb/fNNiNTuUz979Z0Yg5L+LzLxGJz8x79lYmR54fmTIb6ob/hNQgkQnIUDWIFjZVQwl9Xs356I6BAMHfw==}
@@ -3125,6 +3131,8 @@ snapshots:
       temp-file: 3.4.0
     transitivePeerDependencies:
       - supports-color
+
+  arch@3.0.0: {}
 
   archiver-utils@2.1.0:
     dependencies:

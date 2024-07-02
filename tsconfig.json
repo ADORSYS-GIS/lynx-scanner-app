@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "module": "node16"
+  },
   "files": [],
   "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
 }

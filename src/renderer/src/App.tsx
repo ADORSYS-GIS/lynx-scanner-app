@@ -6,13 +6,6 @@ function App(): JSX.Element {
 
   return (
     <>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-        Button
-      </button>
-      <button className="btn btn-outline btn-info">Info</button>
-      <button className="btn btn-outline btn-success">Success</button>
-      <button className="btn btn-outline btn-warning">Warning</button>
-      <button className="btn btn-outline btn-error">Error</button>
       <img alt="logo" className="logo" src={electronLogo} />
       <div className="creator">Powered by electron-vite</div>
       <div className="text">

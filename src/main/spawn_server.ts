@@ -116,7 +116,7 @@ const startServer = (): Observable<void> => {
 }
 
 const startServerIfNotRunning = (): void => {
-  const version = process.env.MAIN_VITE_BACKEND_VERSION
+  const version = import.meta.env.MAIN_VITE_BACKEND_VERSION
   if (!version) {
     throw new Error('MAIN_VITE_BACKEND_VERSION is not set')
   }

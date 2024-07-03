@@ -13,7 +13,7 @@ const appData = app.getPath('userData')
 const serverBinaryPath = join(appData, 'lynx-scanner-backend', 'lynx-backend')
 
 const buildDownloadUrl = (version: string, os = getOS(), arch = getArch()): string =>
-  `https://github.com/stephane-segning/lynx-scanner-backend/releases/download/${version}/lynx-backend-${os}-${arch}`
+  `https://github.com/stephane-segning/lynx-scanner-backend/releases/tag/${version}/lynx-backend-${os}-${arch}`
 
 const getOS = (): string => {
   switch (process.platform) {

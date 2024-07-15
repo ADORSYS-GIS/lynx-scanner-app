@@ -127,7 +127,7 @@ const startServerIfNotRunning = (): void => {
 
   checkServer()
     .pipe(
-      switchMap((exists) => (downloadServer(version))),
+      switchMap(() => downloadServer(version)),
       tap(() => serverLog.log('Server downloaded and made executable')),
       switchMap(startServer),
       catchError((error) => {

@@ -8,6 +8,8 @@ import axios from 'axios'
 import { from, Observable, of, throwError } from 'rxjs'
 import { catchError, switchMap, tap } from 'rxjs/operators'
 
+// https://github.com/stephane-segning/lynx-scanner-backend/releases/download/0.0.1-SNAPSHOT/lynx-backend-macos-arm64
+
 const serverLog = logger.scope('server')
 const appData = app.getPath('userData')
 const serverBinaryPath = join(appData, 'lynx-scanner-backend', 'lynx-backend')
@@ -33,7 +35,7 @@ const getArch = (): string => {
     case 'arm64':
       return 'arm64'
     case 'x64':
-      return 'amd64'
+      return 'x64'
     default:
       throw new Error(`Unsupported arch: ${arch()}`)
   }
@@ -88,8 +90,8 @@ const startServer = (): Observable<void> => {
         ...process.env,
         SERVER_PORT: '21007',
         SPRING_MAIN_BANNERMODE: 'off',
-        LOGGING_LEVEL_ROOT: 'error',
-        LOGGING_LEVEL_COM_SSEGNING_LYNX_LYNXBACKEND: 'error',
+        // LOGGING_LEVEL_ROOT: 'error',
+        // LOGGING_LEVEL_COM_SSEGNING_LYNX_LYNXBACKEND: 'error',
         FILE_UPLOADDIR: join(appData, 'lynx-scanner-backend', 'uploads')
       }
     })
@@ -116,7 +118,7 @@ const startServer = (): Observable<void> => {
 }
 
 const startServerIfNotRunning = (): void => {
-  const version = process.env.MAIN_VITE_BACKEND_VERSION
+  const version = import.meta.env.MAIN_VITE_BACKEND_VERSION
   if (!version) {
     throw new Error('MAIN_VITE_BACKEND_VERSION is not set')
   }
@@ -125,7 +127,8 @@ const startServerIfNotRunning = (): void => {
 
   checkServer()
     .pipe(
-      switchMap((exists) => (exists ? of(null) : downloadServer(version))),
+      switchMap((exists) => (downloadServer(version))),
+      tap(() => serverLog.log('Server downloaded and made executable')),
       switchMap(startServer),
       catchError((error) => {
         serverLog.error(error)

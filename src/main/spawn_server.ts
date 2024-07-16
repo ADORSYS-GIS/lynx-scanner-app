@@ -13,6 +13,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators'
 const serverLog = logger.scope('server')
 const appData = app.getPath('userData')
 const serverBinaryPath = join(appData, 'lynx-scanner-backend', 'lynx-backend')
+logger.error(serverBinaryPath)
 
 const buildDownloadUrl = (version: string, os = getOS(), arch = getArch()): string =>
   `https://github.com/stephane-segning/lynx-scanner-backend/releases/download/${version}/lynx-backend-${os}-${arch}`
@@ -127,7 +128,7 @@ const startServerIfNotRunning = (): void => {
 
   checkServer()
     .pipe(
-      switchMap(() => downloadServer(version)),
+      switchMap((exist) => (exist ? of(version) : downloadServer(version))),
       tap(() => serverLog.log('Server downloaded and made executable')),
       switchMap(startServer),
       catchError((error) => {

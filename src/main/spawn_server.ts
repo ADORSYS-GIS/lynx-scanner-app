@@ -90,8 +90,8 @@ const startServer = (): Observable<void> => {
         ...process.env,
         SERVER_PORT: '21007',
         SPRING_MAIN_BANNERMODE: 'off',
-        // LOGGING_LEVEL_ROOT: 'error',
-        // LOGGING_LEVEL_COM_SSEGNING_LYNX_LYNXBACKEND: 'error',
+        LOGGING_LEVEL_ROOT: 'error',
+        LOGGING_LEVEL_COM_SSEGNING_LYNX_LYNXBACKEND: 'error',
         FILE_UPLOADDIR: join(appData, 'lynx-scanner-backend', 'uploads')
       }
     })
@@ -127,7 +127,7 @@ const startServerIfNotRunning = (): void => {
 
   checkServer()
     .pipe(
-      switchMap(() => downloadServer(version)),
+      switchMap((exist) => (exist ? of(version) : downloadServer(version))),
       tap(() => serverLog.log('Server downloaded and made executable')),
       switchMap(startServer),
       catchError((error) => {

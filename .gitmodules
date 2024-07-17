@@ -1,0 +1,3 @@
+[submodule "lynx-scanner"]
+	path = lynx-scanner
+	url = https://github.com/stephane-segning/lynx-scanner

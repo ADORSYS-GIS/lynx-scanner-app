@@ -1,6 +1,6 @@
 import type { ConfigFile } from '@rtk-query/codegen-openapi'
 
-const baseDir = process.env.GEN_FOLDER!
+const baseDir = './src/renderer/src/store/gen'
 
 const config: ConfigFile = {
   schemaFile: 'lynx-scanner/openapi.yaml',

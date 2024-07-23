@@ -5,3 +5,5 @@ console.debug = log.debug
 console.error = log.error
 console.warn = log.warn
 console.trace = log.verbose
+
+log.initialize()

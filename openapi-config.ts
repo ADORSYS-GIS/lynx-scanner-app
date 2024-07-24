@@ -4,7 +4,7 @@ const baseDir = './src/renderer/src/store/gen'
 
 const config: ConfigFile = {
   schemaFile: 'lynx-scanner/openapi.yaml',
-  apiFile: './src/renderer/src/store/emptyApi.ts',
+  apiFile: './src/renderer/src/store/empty.api',
   apiImport: 'emptySplitApi',
   hooks: true,
   outputFiles: {

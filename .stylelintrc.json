@@ -1,0 +1,12 @@
+{
+  "plugins": ["stylelint-plugin-defensive-css"],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-tailwindcss/scss"],
+  "rules": {
+    "plugin/use-defensive-css": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ]
+  }
+}

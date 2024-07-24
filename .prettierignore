@@ -6,3 +6,5 @@ tsconfig.json
 tsconfig.*.json
 .husky
 *ignore
+*env
+lynx-scanner

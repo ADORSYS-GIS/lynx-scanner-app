@@ -4,6 +4,7 @@ import { join } from 'path'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import './spawn_server'
+import { address } from 'ip'
 
 function createWindow(): void {
   // Create the browser window.
@@ -54,9 +55,14 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
+  ipcMain.handle('server-url', async () => {
+    const ip = address('public')
+    return `http://${ip}:21007`
+  })
+
   createWindow()
 
-  app.on('activate', function() {
+  app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

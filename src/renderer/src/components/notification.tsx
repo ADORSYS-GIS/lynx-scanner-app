@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { removeNotification, selectNotifications } from '../store/slices/notification.slice'
+import { removeNotification, selectNotifications, useAppDispatch, useAppSelector } from '../store'
 import { Alert, Button } from 'react-daisyui'
 import { useCallback } from 'react'
 
 export function Notification() {
-  const notifications = useSelector(selectNotifications)
-  const dispatch = useDispatch()
+  const notifications = useAppSelector(selectNotifications)
+  const dispatch = useAppDispatch()
   const remove = useCallback(
     (msg: string) => () => {
       dispatch(removeNotification(msg))

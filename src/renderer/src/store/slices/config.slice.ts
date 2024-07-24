@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchConfigUrl } from '../thunks/fetch.config-url'
+import { fetchConfigUrl } from '../thunks'
 
-interface ConfigState {
+export interface ConfigState {
   url?: string
 }
 
@@ -29,6 +29,6 @@ const configSlice = createSlice({
 
 export const { clear: clearConfig, url: setUrlConfig } = configSlice.actions
 
-export default configSlice.reducer
+export const reducerConfig = configSlice.reducer
 
 export const urlConfigSelector = ({ config }: { config: ConfigState }) => JSON.stringify(config)

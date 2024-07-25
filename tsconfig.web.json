@@ -1,10 +1,13 @@
 {
-  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "extends": [
+    "@electron-toolkit/tsconfig/tsconfig.web.json",
+    "lynx-scanner/tsconfig.json"
+  ],
   "include": [
-    "src/renderer/src/logging.ts",
-    "src/renderer/src/env.d.ts",
-    "src/renderer/src/**/*",
-    "src/renderer/src/**/*.tsx",
+    "lynx-scanner/src/logging.ts",
+    "lynx-scanner/src/env.d.ts",
+    "lynx-scanner/src/**/*",
+    "lynx-scanner/src/**/*.tsx",
     "src/preload/*.d.ts"
   ],
   "compilerOptions": {
@@ -13,8 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@renderer/*": [
-        "src/renderer/src/*"
-      ]
+        "lynx-scanner/*"
+      ],
+      "@api/*": ["lynx-scanner/src/store/gen/*"]
     }
   }
 }

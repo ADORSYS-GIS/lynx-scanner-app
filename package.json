@@ -19,13 +19,14 @@
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
     "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux",
-    "rtk:gen": "esr rtk-gen.ts && rtk-query-codegen-openapi openapi-config.ts && prettier -w ./src/renderer/src/store/gen"
+    "build:linux": "electron-vite build && electron-builder --linux"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
     "@reduxjs/toolkit": "^2.2.6",
+    "@sentry/react": "^8.20.0",
+    "@sentry/tracing": "^7.114.0",
     "arch": "^3.0.0",
     "axios": "^1.7.2",
     "electron-log": "^5.1.5",
@@ -91,5 +92,10 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
+  "workspaces": {
+    "packages": [
+      "lynx-scanner"
+    ]
+  },
+  "private": true
 }

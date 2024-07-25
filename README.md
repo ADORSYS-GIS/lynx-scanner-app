@@ -11,24 +11,24 @@ An Electron application with React and TypeScript
 ### Install
 
 ```bash
-$ pnpm install
+$ yarn install
 ```
 
 ### Development
 
 ```bash
-$ pnpm dev
+$ yarn dev
 ```
 
 ### Build
 
 ```bash
 # For windows
-$ pnpm build:win
+$ yarn build:win
 
 # For macOS
-$ pnpm build:mac
+$ yarn build:mac
 
 # For Linux
-$ pnpm build:linux
+$ yarn build:linux
 ```

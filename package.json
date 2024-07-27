@@ -15,7 +15,7 @@
     "prepare": "husky",
     "dev": "electron-vite dev",
     "build": "yarn run typecheck && electron-vite build",
-    "postinstall": "yarn run rtk:gen && electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "build:unpack": "yarn run build && electron-builder --dir",
     "build:win": "yarn run build && electron-builder --win",
     "build:mac": "electron-vite build && electron-builder --mac",

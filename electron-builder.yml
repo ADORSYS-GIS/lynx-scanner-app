@@ -44,11 +44,12 @@ linux:
     - target: AppImage
       arch:
         - x64
-  maintainer: electronjs.org
+        - arm64
+  maintainer: ssegning.com
   category: Utility
 appImage:
   artifactName: ${name}-${version}-${arch}.${ext}
 npmRebuild: false
 publish:
   provider: generic
-  url: https://example.com/auto-updates
+  url: https://lyncx.ssegning.com/auto-updates

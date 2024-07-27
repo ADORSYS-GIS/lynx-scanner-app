@@ -67,6 +67,6 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: 'dist/*'
-          tag: v1.0.1
+          tag: v1.1.0
           body: |
             Release ${{ github.ref }}

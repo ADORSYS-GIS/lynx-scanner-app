@@ -1,10 +1,13 @@
 {
-  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "extends": [
+    "@electron-toolkit/tsconfig/tsconfig.web.json",
+    "lynx-scanner/tsconfig.json"
+  ],
   "include": [
-    "src/renderer/src/logging.ts",
-    "src/renderer/src/env.d.ts",
-    "src/renderer/src/**/*",
-    "src/renderer/src/**/*.tsx",
+    "lynx-scanner/src/logging.ts",
+    "lynx-scanner/src/env.d.ts",
+    "lynx-scanner/src/**/*",
+    "lynx-scanner/src/**/*.tsx",
     "src/preload/*.d.ts"
   ],
   "compilerOptions": {
@@ -13,8 +16,22 @@
     "baseUrl": ".",
     "paths": {
       "@renderer/*": [
-        "src/renderer/src/*"
-      ]
+        "lynx-scanner/*"
+      ],
+      "@api/*": ["lynx-scanner/src/store/gen/*"],
+      "@api": ["lynx-scanner/src/store/api"],
+      "@shared/*": ["lynx-scanner/src/shared/*"],
+      "@shared": ["lynx-scanner/src/shared"],
+      "@store/*": ["lynx-scanner/src/store/*"],
+      "@store": ["lynx-scanner/src/store"],
+      "@screens/*": ["lynx-scanner/src/screens/*"],
+      "@screens": ["lynx-scanner/src/screens"],
+      "@i18n/*": ["lynx-scanner/src/i18n/*"],
+      "@i18n": ["lynx-scanner/src/i18n"],
+      "@components/*": ["lynx-scanner/src/components/*"],
+      "@components": ["lynx-scanner/src/components"],
+      "@assets/*": ["lynx-scanner/src/assets/*"],
+      "@assets": ["lynx-scanner/src/assets"]
     }
   }
 }

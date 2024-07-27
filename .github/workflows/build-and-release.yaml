@@ -18,7 +18,7 @@ jobs:
           - platform: mac
             runs-on: macos-latest
           - platform: win
-            runs-on: windows-latest
+            runs-on: macos-latest
           - platform: linux
             runs-on: ubuntu-latest
     steps:
@@ -27,26 +27,22 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - uses: pnpm/action-setup@v2
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
         with:
-          version: 8
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          node-version: 22.x
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: pnpm install
+        run: yarn install --frozen-lockfile
 
       - name: Install dmg-license for mac
         if: matrix.platform == 'mac'
         run: |
-          pnpm i -D dmg-license
+          yarn add -W -D dmg-license
 
       - name: Build and package app for ${{ matrix.platform }}
-        run: pnpm run build:${{ matrix.platform }}
+        run: yarn build:${{ matrix.platform }}
 
       - name: Upload dist to Artifact
         uses: actions/upload-artifact@v4

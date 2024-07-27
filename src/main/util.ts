@@ -7,10 +7,15 @@ import axios from 'axios'
 import { app } from 'electron'
 import logger from 'electron-log'
 
+export const serverVersion = import.meta.env.MAIN_VITE_BACKEND_VERSION
 const serverLog = logger.scope('utils')
 
 export const appData = app.getPath('userData')
-export const serverBinaryPath = join(appData, 'lynx-scanner-backend', 'lynx-backend')
+export const serverBinaryPath = join(
+  appData,
+  'lynx-scanner-backend',
+  `lynx-backend-${serverVersion}`
+)
 
 export const buildDownloadUrl = (version: string, os = getOS(), arch = getArch()): string =>
   `https://github.com/stephane-segning/lynx-scanner-backend/releases/download/${version}/lynx-backend-${os}-${arch}`

@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import logger from 'electron-log'
 import { Observable, of, throwError } from 'rxjs'
 import { catchError, switchMap, tap } from 'rxjs/operators'
-import { appData, checkServer, downloadServer, serverBinaryPath } from './util'
+import { appData, checkServer, downloadServer, serverBinaryPath, serverVersion } from './util'
 
 const serverLog = logger.scope('server')
 
@@ -44,16 +44,11 @@ const startServer = (): Observable<void> => {
 }
 
 const startServerIfNotRunning = (): void => {
-  const version = import.meta.env.MAIN_VITE_BACKEND_VERSION
-  if (!version) {
-    throw new Error('MAIN_VITE_BACKEND_VERSION is not set')
-  }
-
   serverLog.log('Checking if server app is already downloaded')
 
   checkServer()
     .pipe(
-      switchMap((exist) => (exist ? of(version) : downloadServer(version))),
+      switchMap((exist) => (exist ? of(serverVersion) : downloadServer(serverVersion))),
       tap(() => serverLog.log('Server downloaded and made executable')),
       switchMap(startServer),
       catchError((error) => {

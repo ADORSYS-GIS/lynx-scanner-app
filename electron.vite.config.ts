@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   main: {
@@ -10,11 +11,17 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
+    root: 'lynx-scanner',
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src')
+        '@renderer': resolve('lynx-scanner')
       }
     },
-    plugins: [react()]
+    plugins: [tsconfigPaths(), react()],
+    build: {
+      rollupOptions: {
+        input: 'lynx-scanner/index.html'
+      }
+    }
   }
 })

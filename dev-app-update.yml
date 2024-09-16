@@ -1,3 +1,3 @@
 provider: generic
-url: https://example.com/auto-updates
+url: https://lyncx.ssegning.com/auto-updates
 updaterCacheDirName: lynx-electron-updater
